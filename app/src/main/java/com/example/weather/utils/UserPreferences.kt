@@ -24,7 +24,6 @@ object UserPreferences {
         val cityLat = pref.getFloat(LATEST_SEARCHED_CITY_LAT_KEY, 43.6532f).toDouble()
         val cityLon = pref.getFloat(LATEST_SEARCHED_CITY_LON_KEY, -79.3832f).toDouble()
 
-//        Log.d("LATESTSAVEDCITY", "getLatestSearchedCity: $city, $cityLat, $cityLon")
         return listOf(city, cityLat, cityLon)
     }
 }

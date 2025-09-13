@@ -1,10 +1,7 @@
 package com.example.weather.screens.main
 
-
-
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,6 +34,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import com.example.weather.components.DrawerContent
 import com.example.weather.components.FeelsLike
@@ -48,7 +46,7 @@ import com.example.weather.components.SunPosition
 import com.example.weather.components.WeeklyForecast
 import com.example.weather.screens.settings.SettingsViewModel
 import com.example.weather.utils.AppColor
-import kotlin.math.log
+import com.example.weather.utils.UserPreferences
 
 
 @Composable
@@ -56,19 +54,13 @@ fun MainScreen(
     navController: NavController,
     mainViewModel: MainViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel(),
-    city: String?,
-    cityLat: Double,
-    cityLon: Double
 ){
 
-//    val cityName = if (city.isNullOrBlank()) "Toronto" else city
-    val cityName =  "Toronto"
-//    val cityLat= if(cityLat.toString().isBlank()) 43.6532 else cityLat
-    val cityLat=  43.6532
-//    val cityLon = if(cityLon.toString().isBlank()) -79.3832 else cityLon
-    val cityLon =  -79.3832
+    val cityInfo = UserPreferences.getLatestSearchedCity(LocalContext.current)
 
-    Log.d("WeatherDetails", "MainScreen: $cityName, $cityLat, $cityLon")
+    val cityName = cityInfo[0] as String
+    val cityLat = cityInfo[1] as Double
+    val cityLon = cityInfo[2] as Double
 
     // Unit management
     val unitFromDB = settingsViewModel.unitList.collectAsState().value
@@ -107,7 +99,7 @@ fun MainScreen(
             MainDrawer(
                 weather = weatherData.data!!,
                 navController = navController,
-                cityName = cityName.toString(),
+                cityName = cityName,
                 isMetric = isMetric.value
             )
 
@@ -120,7 +112,7 @@ fun MainScreen(
         isMetric.value = unit.value == "metric"
 
 
-        val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
+        val weatherData = produceState(
             initialValue = DataOrException(loading = true)) {
             value = mainViewModel.getWeatherData(lat = cityLat, lon = cityLon, unit = unit.value)
         }.value
@@ -137,7 +129,7 @@ fun MainScreen(
             MainDrawer(
                 weather = weatherData.data!!,
                 navController = navController,
-                cityName = cityName.toString(),
+                cityName = cityName,
                 isMetric = isMetric.value
             )
 
@@ -213,9 +205,6 @@ fun MainScaffold(weather: Weather,
 
 @Composable
 fun MainContent(data: Weather, modifier: Modifier = Modifier, isMetric: Boolean){
-
-    // Main Image URL
-    val imageURL = "https://openweathermap.org/img/wn/${data.current.weather[0].icon}.png"
 
     Column(modifier = modifier
         .fillMaxWidth()
