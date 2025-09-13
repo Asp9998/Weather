@@ -61,17 +61,22 @@ fun MainScreen(
     cityLon: Double
 ){
 
-    val cityName = if (city.isNullOrBlank()) "Mississauga" else city
-    val cityLat= if(cityLat.toString().isBlank()) 43.5853 else cityLat
-    val cityLon = if(cityLon.toString().isBlank()) -79.6450 else cityLon
+//    val cityName = if (city.isNullOrBlank()) "Toronto" else city
+    val cityName =  "Toronto"
+//    val cityLat= if(cityLat.toString().isBlank()) 43.6532 else cityLat
+    val cityLat=  43.6532
+//    val cityLon = if(cityLon.toString().isBlank()) -79.3832 else cityLon
+    val cityLon =  -79.3832
+
+    Log.d("WeatherDetails", "MainScreen: $cityName, $cityLat, $cityLon")
 
     // Unit management
     val unitFromDB = settingsViewModel.unitList.collectAsState().value
 
-    var unit = remember {
+    val unit = remember {
         mutableStateOf("metric")
     }
-    var isMetric = remember {
+    val isMetric = remember {
         mutableStateOf(false)
     }
 
@@ -83,10 +88,12 @@ fun MainScreen(
         isMetric.value = unit.value == "metric"
 
 
-        val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
+        val weatherData = produceState(
             initialValue = DataOrException(loading = true)) {
             value = mainViewModel.getWeatherData(lat = cityLat, lon = cityLon, unit = unit.value)
         }.value
+
+        Log.d("WeatherDetails", "MainScreen: ${weatherData.data}")
 
         if(weatherData.loading == true){
             Surface(modifier = Modifier.fillMaxSize(),

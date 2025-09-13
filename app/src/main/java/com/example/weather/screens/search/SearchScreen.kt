@@ -1,8 +1,6 @@
 package com.example.weather.screens.search
 
 import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,25 +11,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -44,6 +37,7 @@ import com.example.weather.model.GeoCoadingApiModels.CityNameItem
 import com.example.weather.navigation.WeatherScreens
 import com.example.weather.screens.favorite.FavoriteViewModel
 import com.example.weather.utils.AppColor
+import com.example.weather.utils.UserPreferences
 import com.example.weather.widgets.WeatherAppBar
 
 @Composable
@@ -125,6 +119,8 @@ fun CityDetails(cityItem: CityNameItem,
                 isLast: Boolean,
                 favoriteViewModel: FavoriteViewModel,
                 navController: NavController) {
+
+    val context = LocalContext.current
     Surface(
         color = Color.Transparent
     ) {
@@ -141,6 +137,8 @@ fun CityDetails(cityItem: CityNameItem,
                     if (!alreadyFavorite) {
                         favoriteViewModel.addFavorite(Favorite(lat = cityLat, lon = cityLon, city = city))
                     }
+
+                    UserPreferences.saveLatestSearchedCity(context, city, cityLat, cityLat)
 
                     Log.d("ADD", "SearchScreen: $city")
                     navController.navigate(WeatherScreens.MainScreen.name+"/$cityLat/$cityLon/$city"){
@@ -179,7 +177,6 @@ fun CityDetails(cityItem: CityNameItem,
 
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier,
     onQueryChanged: (String) -> Unit,
 
 ){

@@ -34,6 +34,7 @@ import com.example.weather.R
 import com.example.weather.model.FavoriteModel.Favorite
 import com.example.weather.navigation.WeatherScreens
 import com.example.weather.utils.AppColor
+import com.example.weather.utils.UserPreferences
 
 @Composable
 fun FavoriteScreen(favoriteViewModel: FavoriteViewModel = hiltViewModel(), navController: NavController){
@@ -73,6 +74,7 @@ fun FavoriteRow(data: Favorite,
                    .fillMaxWidth(0.7f)
                    .clip(shape = RoundedCornerShape(25.dp))
                    .clickable{
+                       UserPreferences.saveLatestSearchedCity(context, city = data.city, cityLat = data.lat, cityLon = data.lon)
                        navController.navigate(WeatherScreens.MainScreen.name+"/${data.lat}/${data.lon}/${data.city}"){
                            popUpTo(0)
                        }

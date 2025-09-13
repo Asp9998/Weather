@@ -1,6 +1,5 @@
 package com.example.weather.screens.splash
 
-import android.util.Log
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -22,20 +21,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.weather.R
 import com.example.weather.navigation.WeatherScreens
-import com.example.weather.utils.AppColor
+import com.example.weather.utils.UserPreferences
 import kotlinx.coroutines.delay
 
 @Composable
 fun WeatherSplashScreen(navController: NavController){
 
-    val city = "Mississauga"
-    val cityLat = 43.5853
-    val cityLon = -79.6450
+//    Log.d("LATESTSAVEDCITY", "WeatherSplashScreen: BEFORECALl ")
+
+    val cityInfo = UserPreferences.getLatestSearchedCity(LocalContext.current)
+
+    val city = cityInfo[0] as String // City name
+    val cityLat = cityInfo[1] as Double// City Lat
+    val cityLon = cityInfo[2] as Double// City Lon
+
+//    Log.d("LATESTSAVEDCITY", "WeatherSplashScreen: city:$cityInfo")
 
     val scale = remember {
         Animatable(initialValue = 0f)

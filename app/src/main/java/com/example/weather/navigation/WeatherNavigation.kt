@@ -21,7 +21,9 @@ fun WeatherNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController,
-        startDestination = WeatherScreens.SplashScreen.name){
+        startDestination = WeatherScreens.SplashScreen.name
+
+    ){
         composable(WeatherScreens.SplashScreen.name){
             WeatherSplashScreen(navController = navController)
         }
