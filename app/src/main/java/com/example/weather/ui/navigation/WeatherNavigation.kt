@@ -9,8 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.weather.ui.navigation.WeatherScreen
-import com.example.weather.ui.navigation.WeatherScreens
 import com.example.weather.ui.feature.about.AboutScreen
 import com.example.weather.ui.feature.favourite.FavoriteViewModel
 import com.example.weather.ui.feature.main.AppGateViewModel

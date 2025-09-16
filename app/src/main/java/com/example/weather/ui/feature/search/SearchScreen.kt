@@ -52,8 +52,7 @@ fun SearchScreen(navController: NavController,
     Scaffold(
         topBar = {
             WeatherAppBar(title = "Search",
-                isMainScreen = false,
-                navController = navController){
+                isMainScreen = false){
                 navController.popBackStack()
             }
         },

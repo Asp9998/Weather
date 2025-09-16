@@ -1,6 +1,7 @@
 package com.example.weather.ui.feature.main
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -139,55 +140,6 @@ fun MainScreen(
 
         else -> Box(Modifier.fillMaxSize())
     }
-
-//    when (gate) {
-//        AppGateViewModel.LocationGate.Granted -> {
-//            when {
-//                // Show content as soon as we have any snapshot
-//                state.data != null -> {
-//
-//                    Log.d("DATAWEATHER", "MainScreen: ${state.data}")
-//
-//                    Box(Modifier.fillMaxSize()) {
-//                        WeatherBackground(spec)
-//
-//
-//                        MainDrawer(
-//                            weather = state.data!!,
-//                            navController = navController,
-//                            cityName = cityName ?: "—",
-//                            isMetric = unit.value == "metric"
-//                        )
-//                    }
-//                }
-//
-//                // Gentle error (keep it light; don’t block the screen)
-//                state.e != null ->{
-//                    Log.d("DATAWEATHER", "MainScreen: ${state.e}")
-//
-//                    Box(
-//                        modifier = Modifier.fillMaxSize(),
-//                        contentAlignment = Alignment.Center
-//                    ) {
-//                        mainViewModel.bindFromLastLocationOrCurrent(unit.value)
-//                    }}
-//
-//                // First-ever run only; keep empty surface (no dot flicker)
-//                state.data == null && state.loading == true -> Box(Modifier.fillMaxSize())
-//
-//                else -> Box(Modifier.fillMaxSize()) // safety no-op
-//            }
-//        }
-//
-//        AppGateViewModel.LocationGate.Disabled,
-//        AppGateViewModel.LocationGate.Denied -> {
-//            // If you want a default city when denied, you can call observeLocation(...) once above.
-//            FallbackBlock(
-//                state = state,
-//                onSearch = { navController.navigate(WeatherScreens.SearchScreen.name) }
-//            )
-//        }
-//    }
 }
 
 
@@ -239,7 +191,6 @@ fun MainScaffold(weather: Weather,
 
     Scaffold (topBar = {
         WeatherAppBar(title = cityName,
-            navController = navController,
             onSearchButtonClicked = {
                 navController.navigate(WeatherScreens.SearchScreen.name)
             },
@@ -343,19 +294,13 @@ private fun FallbackBlock(
     onSearch: () -> Unit
 ) {
     when {
-//        state.loading == true -> FullscreenLoader()
         state.loading == true -> CircularProgressIndicator()
         state.data != null -> {
             // We have a cached/home-city weather; show it
             MainContent(data = state.data!!, isMetric = true) // or pass isMetric
         }
         else -> {
-            // Nothing to show → nudge search
-//            ErrorFallback(
-//                message = "Location is off. Search a city or set a Home city.",
-//                onRetry = onSearch,   // reuse button as "Search"
-//                onSearch = onSearch
-//            )
+            Log.d("FallBack", "FallbackBlock: Error occurred ")
         }
     }
 }

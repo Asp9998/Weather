@@ -22,8 +22,7 @@ import com.example.weather.core.design.components.WeatherAppBar
 fun AboutScreen(navController: NavHostController) {
 
     Scaffold(topBar = {WeatherAppBar(title = "About",
-        isMainScreen = false,
-        navController = navController){
+        isMainScreen = false){
         navController.popBackStack()
     }},
         containerColor = Color.Transparent

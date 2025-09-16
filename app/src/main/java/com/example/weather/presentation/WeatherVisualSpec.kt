@@ -1,9 +1,7 @@
 package com.example.weather.presentation
 
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-// ui/visual/WeatherVisualSpec.kt
 enum class Overlay { NONE, RAIN, SNOW, FOG, STORM }
 
 data class WeatherVisualSpec(

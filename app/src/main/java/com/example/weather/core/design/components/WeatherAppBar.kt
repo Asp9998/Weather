@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Menu
@@ -33,7 +34,6 @@ fun WeatherAppBar(
     title: String = "Mississauga",
     isMainScreen: Boolean = true,
     elevation: Dp = 0.dp,
-    navController: NavController,
     onSearchButtonClicked: () -> Unit = {},
     onMenuClicked: () -> Unit = {},
     onBackButtonClicked: () -> Unit = {}
@@ -71,7 +71,7 @@ fun WeatherAppBar(
                         onBackButtonClicked.invoke()
                     }
                 }) {
-                    Icon(imageVector = if(isMainScreen) Icons.Rounded.Menu else Icons.Default.ArrowBack,
+                    Icon(imageVector = if(isMainScreen) Icons.Rounded.Menu else Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = if(isMainScreen) "menu icon" else "back icon",
                         tint = Color.White,
                     )

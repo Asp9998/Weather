@@ -15,57 +15,6 @@ fun mapWeatherToSpec(w: Weather, reduceMotion: Boolean): WeatherVisualSpec {
     val clouds = (w.current?.clouds ?: 0) / 100f
 
     val (key, palette, overlay, overlayIntensity, lightning, star) = when {
-//        code in 200..232 -> Triple(
-//            if (isDay) "day_storm" else "night_storm",
-//            if (isDay) listOf(Color(0xFF233A5E), Color(0xFF3E4A76)) else listOf(Color(0xFF0B1026), Color(0xFF211E47)),
-//            Overlay.STORM
-//        ).let { Quintuple(it.first, it.second, it.third, intensity.coerceIn(0f,1f), true, false) }
-//
-//        code in 600..622 -> Quintuple(
-//            if (isDay) "day_snow" else "night_snow",
-//            if (isDay) listOf(Color(0xFFBFD8E6), Color(0xFFE7F0F6)) else listOf(Color(0xFF0E2030), Color(0xFF2B3D4E)),
-//            Overlay.SNOW,
-//            intensity.coerceIn(0f,1f),
-//            false,
-//            !isDay // stars only at night
-//        )
-//
-//        code in 500..531 || code in 300..321 -> Quintuple(
-//            if (isDay) "day_rain" else "night_rain",
-//            if (isDay) listOf(Color(0xFF6C8FA6), Color(0xFFA9C0CF)) else listOf(Color(0xFF0E1B2A), Color(0xFF1E2E40)),
-//            Overlay.RAIN,
-//            (intensity.takeIf { it>0f } ?: 0.4f).coerceIn(0f,1f),
-//            false,
-//            false
-//        )
-//
-//        code in 701..781 -> Quintuple(
-//            if (isDay) "day_fog" else "night_fog",
-//            listOf(Color(0xFFB9C3C9), Color(0xFFD7DDE1)),
-//            Overlay.FOG,
-//            0.5f,
-//            false,
-//            false
-//        )
-//
-//        code == 800 -> Quintuple(
-//            if (isDay) "day_clear" else "night_clear",
-//            if (isDay) listOf(Color(0xFF87CEFA), Color(0xFFB0E0E6)) else listOf(Color(0xFF0A1433), Color(0xFF1D2B5A)),
-//            Overlay.NONE,
-//            0f,
-//            false,
-//            !isDay
-//        )
-//
-//        else -> Quintuple(
-//            if (isDay) "day_clouds" else "night_clouds",
-//            if (isDay) listOf(Color(0xFFA0B4C0), Color(0xFFC2CFD7)) else listOf(Color(0xFF101C2C), Color(0xFF28384A)),
-//            Overlay.NONE,
-//            0f,
-//            false,
-//            false
-//        )
-
         // --- Thunderstorm (200–232) ---
         code in 200..232 -> Quintuple(
             if (isDay) "day_storm" else "night_storm",

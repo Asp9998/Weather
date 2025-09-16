@@ -292,7 +292,6 @@ class MainViewModel @Inject constructor(
         unit: String
     ) = viewModelScope.launch(dp.io) {
         val id = locationKey(lat, lon)
-        val now = System.currentTimeMillis()
 
         // 2) Kick off snapshot refresh silently (don’t await)
         launch(dp.io) {
