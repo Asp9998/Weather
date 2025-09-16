@@ -30,12 +30,11 @@ import androidx.navigation.NavHostController
 import com.example.weather.data.local.db.entity.UnitEntity
 import com.example.weather.core.util.AppColor
 import com.example.weather.core.design.components.WeatherAppBar
-import com.example.weather.ui.feature.settings.SettingsViewModel
 
 @Composable
 fun SettingsScreen(navController: NavHostController, settingsViewModel: SettingsViewModel = hiltViewModel()) {
 
-    var unitToggleState = remember {
+    val unitToggleState = remember {
         mutableStateOf(false)
     }
     val measurementUnits = listOf("Metric (C)", "Imperial (F)")
@@ -44,15 +43,14 @@ fun SettingsScreen(navController: NavHostController, settingsViewModel: Settings
 
     val defaultChoice = if(choiceFormDB.isEmpty()) measurementUnits[0] else choiceFormDB[0].unit
 
-    var choiceState = remember {
+    val choiceState = remember {
         mutableStateOf(defaultChoice)
     }
 
     Scaffold(
         topBar = {
             WeatherAppBar(title = "Settings",
-                isMainScreen = false,
-                navController = navController){
+                isMainScreen = false){
                 navController.popBackStack()
             }
         },
