@@ -1,0 +1,31 @@
+package com.example.weather.data.remote
+
+import com.example.weather.data.remote.dto.geocoading.CityNameItem
+import com.example.weather.data.remote.dto.onecall.Weather
+import com.example.weather.core.util.Constants
+import retrofit2.http.GET
+import retrofit2.http.Query
+import javax.inject.Singleton
+
+@Singleton
+interface WeatherApi {
+
+    // GET LAT AND LON USING CITY NAME
+    @GET(value = "geo/1.0/direct")
+    suspend fun getCityInfo(
+        @Query("q") query: String,
+        @Query("limit") limit: String = "1",
+        @Query("appid") appid: String = Constants.API_KEY
+    ): List<CityNameItem>
+
+
+    // GET WEATHER USING LAT AND LOG
+    @GET(value = "data/3.0/onecall")
+    suspend fun getWeather(
+        @Query("lat") latitude: Double = 49.8955367,
+        @Query("lon") longitude: Double = -97.1384584,
+        @Query("exclude") exclude: String = "minutely,alerts",
+        @Query("units") units: String = "metric",
+        @Query("appid") appid: String = Constants.API_KEY
+    ): Weather
+}

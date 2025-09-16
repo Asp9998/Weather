@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,11 +91,6 @@ dependencies {
     ksp("androidx.room:room-compiler:2.7.0")
     implementation("androidx.room:room-ktx:2.7.0")
 
-    // Coroutine Lifecycle Scopes
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-    //lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-
     // Coil
     implementation("io.coil-kt:coil-compose:1.4.0")
 
@@ -109,5 +105,15 @@ dependencies {
 
     // navigation
     implementation(libs.androidx.navigation.compose)
+
+    // Moshi
+    implementation ("com.squareup.moshi:moshi:1.15.2")
+    implementation ("com.squareup.moshi:moshi-kotlin:1.15.0") // For Kotlin extensions
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.2")     // For code Generation
+    implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
+
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
+
 
 }
