@@ -60,5 +60,8 @@ com.example.weather
 
 
 
-https://github.com/user-attachments/assets/620a4e31-c128-4cb5-b2a7-70a4d2a23682
+
+https://github.com/user-attachments/assets/47f5a8a1-f5ca-4b12-b74e-cbaaeef053dd
+
+
 
